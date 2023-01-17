@@ -1,7 +1,7 @@
-var students = [""];
-for (let i =0; i<5; i++) {
-    const student = prompt("yours names ?" + (i+1)).toLowerCase();
-    students.push(student)
+const students = [];
+for (let i =1; i<=5; i++) {
+    var fName = prompt("yours names ?" + (i)).toLowerCase();
+    students.push(fName)
 }
 students.sort();
 var result = students.join (", ");

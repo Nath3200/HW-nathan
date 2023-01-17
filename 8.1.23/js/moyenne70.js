@@ -1,16 +1,26 @@
-var resultats = [];
-var listeEleves = [];
-for (let i=0; i <5;i++) {
-     var nomEleve = prompt("prenom de l eleve" + i);
-     var noteEleve = prompt("note de l eleve" + i);
-     listeEleves.push(nomEleve);
-     resultats.push(noteEleve);
-}
-for(let i=0; i<resultats.length; i++) {
-     if(resultats[i]>=70) {
-          document.write("<h2>Indice : " + (i) + "- Prenom de l eleve : " + listeEleves[i] + " - Notes :" + resultats[i] + "</h2>");
+const Students = [];
+const Results = [];
+const Passed = [];
+var avgPassed = 0;
+var avgFailed = 0;
+while (!qty) var qty = parseInt(prompt("how many students ?"));  // pour eviter le NaN
+for (let i = 0; i<qty; i++) {
+     var fName = prompt("enter the student s name");
+     var note = parseInt(prompt("enter the student s result"));
+     Students.push(fName);
+     Results.push(note);
+     if(note>=70) {
+          Passed.push(fName);
+          avgPassed += note;
+          continue;
      }
+     avgFailed += note;   
 }
+alert(
+     "The students who passed are : " + Passed.join(", ") + ".\n The average of the students who passed is : " +
+     avgPassed / Passed.length + "\nThe average of the students who failed is: " +
+     avgFailed / (qty - Passed.length)
+);
 
 
 
