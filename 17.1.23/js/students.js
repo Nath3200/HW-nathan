@@ -5,3 +5,11 @@ for (let i=1;i<6; i++) {
 };
 students.sort ()
 alert(students)
+
+
+const students = [];
+function five() {
+    for (let i = 1; i < 6; i++) {
+        students.push(prompt("enter a student's name"));
+        } return students.sort()
+} alert(five());

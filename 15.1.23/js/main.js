@@ -1,4 +1,5 @@
-
+var num = Math.trunc(prompt("enter a number"));
+alert (num);
 
 
 
