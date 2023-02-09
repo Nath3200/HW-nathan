@@ -1,6 +1,5 @@
 createForm();
 
-
 function createForm() {
     var model = myInput("model-input","Enter the model name","text");
     var brand = myInput("brand-input","Enter the brand name","text");
@@ -13,7 +12,6 @@ function createForm() {
     function addProduct() {
      console.log("added a product");
     }
- 
  }
  
  function myInput (_id,_placeholder,_type,_class="") {

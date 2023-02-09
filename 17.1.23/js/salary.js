@@ -14,7 +14,7 @@ switch (salary) {
         default : break;
 }
 
-var num = 25698;
-var bool = num < 30000;
-var bool2 = num < 30000 && num > 25000;
-var bool = num < 30000 ? true : "j ai faim";
+// var num = 25698;
+// var bool = num < 30000;
+// var bool2 = num < 30000 && num > 25000;
+// var bool = num < 30000 ? true : "j ai faim";

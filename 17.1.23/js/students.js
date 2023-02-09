@@ -1,4 +1,4 @@
-var students = [""];
+var students = [];
 for (let i=1;i<6; i++) {
     students.push(prompt("enter the student's name"));
     students.join(" , ");
@@ -12,4 +12,5 @@ function five() {
     for (let i = 1; i < 6; i++) {
         students.push(prompt("enter a student's name"));
         } return students.sort()
-} alert(five());
+} 
+alert(five());

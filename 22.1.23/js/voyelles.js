@@ -8,7 +8,8 @@ var consonantMessage = "Your string containes the following consonants";
 var vArr = [];
 var cArr = [];
 
-for (let i = 0; i < fullName.length; i++) {   const x = fullName[i];
+for (let i = 0; i < fullName.length; i++) {   
+    const x = fullName[i];
     if("aeiouy".includes(x)) {
         vArr.push(x);
         continue;
@@ -47,7 +48,7 @@ function splitVowelsCons(toto) {
 
 // fait par moi
 
-    const voyelles = [];
+const voyelles = [];
 const consonnes = [];
 var fullname = prompt("what s your full name?").toLowerCase().replaceAll(" ","").split("").sort();
 

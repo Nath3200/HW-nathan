@@ -1,13 +1,11 @@
-function gmail() {
-     var mail = prompt("enter your mail").toLowerCase();
-     if (mail.includes("gmail")) {
-         var point = mail.split("@");
-         mail = point[0].replaceAll(".","") + "@" + point[1];
-     }
-     return mail
- }
- alert(gmail());
+var students= [];
+ for(let i=0; i<5; i++) 
+ { students.push(prompt("Enter a Student:")); 
 
-
-
-// git add . ; git commit -m "message" ; git push ;
+ function sortAndPrint() {
+    students.sort();
+    var list= students.join(", ");
+    text= "The students are: " + list;
+    return text;}
+}
+    alert (sortAndPrint());
