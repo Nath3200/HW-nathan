@@ -1,0 +1,83 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+header{
+    border : 5px solid black;   
+    background-color: rgb(247, 247, 122);
+    height: 40px;
+    width: 80%;   
+    margin : 0 auto;
+    padding: 20px;
+    
+}
+header h1{
+    color: rgb(110, 48, 168);
+    text-align: center;
+    line-height: 40px;
+    font-size: 40px;
+    font-weight: bold;   
+}
+main{
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}    
+main section#scan{
+    background-color: black;
+    height: 450px;
+    width: 820px;   
+}
+main #scan button{   
+    padding: 3px 10px;
+    line-height: 30px;
+    background-color: rgb(108, 108, 248);
+    font-size: 16px;
+    box-shadow: 0 0 60px -10px;   
+    position:absolute;
+    box-shadow: 0 0 60px -5px;   
+    top: 110px;
+    left: 128px;   
+}
+    
+/* #scan button:hover{} */
+    
+    /* top max 520  min 110*/
+    /* left max 863 min 128*/
+
+
+ #scan button.rotate{ 
+    animation:  spin 1s linear infinite;
+    top: 315px;
+    left: 495px;
+    transition-duration: 3s;  /* temps de deplacement du bouton */
+    animation-duration: 2s;  /* temps de rotation du bouton */
+
+    /* -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite; */      
+    /* transform: rotate(360deg) translateZ(0); 
+    transform: rotate(90deg) translate(180px);
+    transform: rotate(90deg) translate(180px);     */
+} 
+
+@-webkit-keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+@-keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+
+main aside{   
+    background-color: rgb(72, 218, 237);
+    min-height: 400px;
+    width: 18%;
+}
+main aside .infos{
+    background-color: white;
+    margin:  10px;
+    padding: 10px;
+}
+
