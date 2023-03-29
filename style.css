@@ -80,4 +80,11 @@ main aside .infos{
     margin:  10px;
     padding: 10px;
 }
-
+div .date-overlay{    
+    display: inline-block;
+    font-size: 1px;    
+}
+div .date-overlay:hover{   
+    display: inline-block;
+    font-size: 10px;    
+}

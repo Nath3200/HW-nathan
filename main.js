@@ -5,15 +5,18 @@ const HTML = {
       homePage: document.getElementById("home-page"),
       authPage: document.getElementById("auth-page"),
     },
+     
     register: {  // s inscrire
       form: document.getElementById("register"),
     },
     login: {  // se connecter
       form: document.getElementById("login"),
     },
-    refresh:{
+   refresh:{
       form: document.getElementById("refresh"),}
   };
+
+  let user = [];
   
   var next = 10
   var missed = 0
@@ -21,43 +24,49 @@ const HTML = {
   var point = 0;
   var secondes = 60;
 
-  var score1 = 50;
-  var score2 = 40;
-  var score3 = 30;
-  var score4 = 20;
-  var score5 = 10;
-
   var scan = document.getElementById("scan");
   var button = document.querySelector("button");
+  
 
   var chrono = document.getElementById("chrono");
-  // chrono.innerHTML = ` Timer : <br> ${secondes}`;
   var s = document.getElementById("s");
-  // s.innerHTML = ` Score : <br> ${point}`;
   var l = document.getElementById("l");
-  // l.innerHTML = ` Level : <br> ${levels}`;
   var m = document.getElementById("m");
-  // m.innerHTML = ` Missed Clicks : <br> ${missed}`;
   var n = document.getElementById("n");
-  // n.innerHTML = ` Points Next Level : <br> ${next}`;
+  var h = document.getElementById("h");
+  h.innerHTML = `<strong>Highest Scores :</strong><br>`;
+  user.forEach(function (obj) {
+    h.innerHTML += `     
+      <span class="player-name">${obj.name} : ${obj.score}<br></span> `;
+  });
+  
+      // Vérifier si la clé "user" existe déjà dans le local storage
+if (!localStorage.getItem("user")) {
+  // Si la clé n'existe pas, insérer les cinq meilleurs marqueurs avec des jetons aléatoires
+  user = [   
+    { name: "Jean",score: 100,timestamp: Date.now()},
+    { name: "Meir", score: 85, timestamp: Date.now()},
+    { name: "Sarah", score: 52, timestamp: Date.now()},    
+    { name: "Laure",score: 59, timestamp: Date.now()},
+    { name: "Elie", score: 18, timestamp: Date.now()},
+  ];
+  // Stocker le tableau en JSON dans le local storage
+  localStorage.setItem("user", JSON.stringify(user));
+} else {
+  // Récupérer le user depuis le local storage
+  user = JSON.parse(localStorage.getItem("user"));
+};
+  //creation de la boucle pour creer le tableau des scores 
+user.forEach(function (obj) {
+  const date = new Date(obj.timestamp);
+  const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  h.innerHTML += `  
+      <div class="date-overlay">${dateString}</div></div>
+      <span class="player-name">${obj.name} : ${obj.score} <br></span>     
+    `;
+});
 
-  var p1 = document.getElementById("p1");
-  var name1 = "Player 1";
-  p1.innerHTML = score1 + " - " + name1; 
-  var p2 = document.getElementById("p2");
-  var name2 = "Player 2";
-  p2.innerHTML = score2 + " - " +  name2; 
-  var p3 = document.getElementById("p3");
-  var name3 = "Player 3";
-  p3.innerHTML = score3 + " - " +  name3; 
-  var p4 = document.getElementById("p4");
-  var name4 = "Player 4";
-  p4.innerHTML = score4 + " - " +  name4;
-  var p5 = document.getElementById("p5"); 
-  var name5 = "Player 5"; var score5 = 10;
-  p5.innerHTML = score5 + " - " + name5;
-
-  const start = ()=>{
+const start = ()=>{
     if(confirm("Ready to start")){
        rotate();
        defilerTemps();
@@ -65,6 +74,45 @@ const HTML = {
 
   const reset = ()=>{ 
   
+ // A la fin du jeux sachant que score est le nom de ma variable ou je stock la partie terminer : 
+// Vérifier si le score de la partie est supérieur à l'un des scores du user 
+const topScores = user.slice(0, 5);
+const isNewHighScore = topScores.some(element => element.score < point); 
+// Afficher un message différent en fonction de si le score de la partie est supérieur à l'un des scores du user
+if (isNewHighScore) {
+    // Demander le nom du joueur avec un prompt
+    const playerName = prompt(
+      "Bravo ! Entrez votre nom pour enregistrer votre score :"
+    );
+    if (playerName) {
+      // Ajouter le score au user
+      user.push({
+        name: playerName,
+        score: point,
+        timestamp: Date.now(),
+      });
+      // Trier le user en fonction du score (du plus élevé au plus bas)
+      user.sort((a, b) => b.score - a.score);
+      // Limiter le leaderboard aux 5 meilleurs scores
+      user = user.slice(0, 5);
+      // Mettre à jour le local storage avec le nouveau user
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+    // Afficher le message de réussite avec le prompt
+    alert("Bravo " + playerName + " ! Votre score est dans le top 5 !");
+  } else {
+    // Afficher le message de game over
+    alert("Game over. Votre score n'est pas dans le top 5.");
+  };
+  // Afficher le user mis à jour
+  h.innerHTML = "<strong>Highest Scores :</strong><br>";
+  user.forEach(function (obj) {
+    h.innerHTML += `
+      
+      <span class="player-name">${obj.name} : ${obj.score}<br></span>
+      `;
+  });
+
    button.style.top = 110 + "px";
    button.style.left = 128 + "px";
    button.style.animation = "none";
@@ -73,86 +121,11 @@ const HTML = {
    l.innerHTML = " Level : <br> 1";
    m.innerHTML = " Missed Clicks : <br> 0";
    chrono.innerHTML = " Timer : <br> 60";
+
    HTML.login.form.style.display = "none";
    HTML.register.form.style.display = "none";
    HTML.refresh.form.style.display = "block";
-   score();
-  }
-
-  
-
-  let score = ()=>{
-  
-  if(point>=score1 && point>score2 && point>score3 && point>score4 && point>score5){    
-      p2.innerHTML = score1 + " - " +name1;
-      p3.innerHTML = score2 + " - " +name2; 
-      p4.innerHTML = score3 + " - " +name3; 
-      p5.innerHTML = score4 + " - " +name4; 
-      score1=point;
-      name1 = prompt("What is your name ?");
-      p1.innerHTML = score1 + " - " +name1;    
   };
-  
-  if(point<score1 && point>=score2 && point>score3 && point>score4 && point>score5){
-      p1.innerHTML = score1 + " - " +name1;
-      p3.innerHTML = score2 + " - " +name2; 
-      p4.innerHTML = score3 + " - " +name3; 
-      p5.innerHTML = score4 + " - " +name4; 
-      score2=point  ;
-      name2 = prompt("What is your name ?");
-      p2.innerHTML = score2 + " - "+name2;  
-  };
- 
-  if(point<score1 && point<score2 && point>=score3 && point>score4 && point>score5){
-      p1.innerHTML = score1 + " - " +name1;
-      p2.innerHTML = score2 + " - " +name2; 
-      p4.innerHTML = score3 + " - " +name3; 
-      p5.innerHTML = score4 + " - " +name4; 
-      score3=point ;
-      name3 = prompt("What is your name ?");
-      p3.innerHTML = score3 + " - "+name3; 
-  };
- 
-  if(point<score1 && point<score2 && point<score3 && point>=score4 && point>score5){
-    p1.innerHTML = score1 + " - " +name1;
-    p2.innerHTML = score2 + " - " +name2; 
-    p3.innerHTML = score3 + " - " +name3; 
-    p5.innerHTML = score4 + " - " +name4;
-    score4=point ;
-    name4 = prompt("What is your name ?");
-    p4.innerHTML = score4 + " - "+name4; 
-  };
-
-  if(point<score1 && point<score2 && point<score3 && point<score4 && point>=score5){
-    p1.innerHTML = score1 + " - " +name1;
-    p2.innerHTML = score2 + " - " +name2; 
-    p3.innerHTML = score3 + " - " +name3; 
-    p4.innerHTML = score4 + " - " +name4;
-    score5 = point;
-    name5 = prompt("What is your name ?");
-    p5.innerHTML = score5 + " - " +name5; 
-  };
-  
-    
-
-    p1.innerHTML = score1 + " - " +name1;
-    p2.innerHTML = score2 + " - " +name2;
-    p3.innerHTML = score3 + " - " +name3; 
-    p4.innerHTML = score4 + " - " +name4; 
-    // p5.addEventListener("mouseover", date);
-
-    localStorage.setItem("players",JSON.stringify(user));
-  };
-
-  const local = JSON.parse(localStorage.getItem("user"));
-  let user = [
-    {Player1 : "Max",
-      Scoere : 100
-  }]
-  
-  const date = ()=>{
-    alert( Date.now());
-  }
 
   const afficher = ()=>{
     if (HTML.login.form.style.display == "none") {
@@ -169,12 +142,11 @@ const HTML = {
     secondes = parseInt(secondes);
     secondes -- ;
     chrono.innerHTML = ` Timer : <br> ${secondes}`;
-    setTimeout(defilerTemps, 100);
+    setTimeout(defilerTemps, 1000);
     button.addEventListener("mouseover" , moove);
     button.addEventListener("click" , plus);
     scan.addEventListener("click" , moins);
     if(secondes == -1){     
-      alert("Game over, your score is : " + point);
       reset();  
     }; return point;
   }}
@@ -201,7 +173,6 @@ const plus = () =>{
    m.innerHTML = ` Missed Clicks : <br> ${missed}`;
    s.innerHTML = ` Score : <br> ${point}`;
    n.innerHTML = ` Points Next Level : <br> ${next}`;nextLevel();
-  // return point;
 }
 const moins = () =>{  
    point -= (1*levels);
@@ -209,7 +180,6 @@ const moins = () =>{
    
    s.innerHTML = ` Score : <br> ${point}`;
    m.innerHTML = ` Missed Clicks : <br> ${missed}`;
-  // return point;
 }
 
 const nextLevel = ()=>{
@@ -233,8 +203,7 @@ const nextLevel = ()=>{
       
     }
     return point;
-}
-}
+}};
 
 HTML.toggleBtn.addEventListener("mouseover" , afficher);
 HTML.toggleBtned.addEventListener("click", start);
